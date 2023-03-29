@@ -1,0 +1,13 @@
+gator_results.xlsx
+venv/
+__pycache__/
+*.pyc
+.nfs*
+*.swp
+app/venv/
+app/static/all.css
+/app/static/.webassets-cache/
+.idea/
+.coverage
+**/.coverage
+flask_session/

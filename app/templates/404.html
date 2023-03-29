@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>404 Error</title>
+    <script type="text/javascript">
+        let seconds = 3;
+        let url="{{ url_for('dashboard') }}";
+        function redirect() {
+            if (seconds === 0) {
+                window.location = url;
+            }
+            seconds--;
+            setTimeout("redirect()", 1000);
+        }
+    </script>
+</head>
+<body>
+404 Error: page not found. Redirecting to the homepage...<br>
+Click <a href="{{ url_for('dashboard') }}">here</a> if not redirected after 3 seconds.
+</body>
+</html>
