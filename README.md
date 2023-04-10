@@ -43,6 +43,7 @@ Template for a WSGI Flask app running on Cloud Foundry using a DBaaS and MSAL au
 
 ### Modify index.py
   \# TODO: this should be an ENV variable instead
+  
   In `index.py` change `MyApp.ReadAccess` to `<your MSAL app name>.ReadAccess`
   
 ### Add a platform in your registered app
