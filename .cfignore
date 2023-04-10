@@ -1,0 +1,10 @@
+venv/
+__pycache__/
+*.pyc
+.nfs*
+*.swp
+app/venv/
+app/static/all.css
+/app/static/.webassets-cache/
+.idea/
+test/
