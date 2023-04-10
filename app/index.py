@@ -94,6 +94,10 @@ def not_found(e):
 def dashboard():
     """Displays the main dashboard page, optionally using a request query to specify a product_step for initial load"""
 
+    if not session.get("user"):
+        session["flow"] = _build_auth_code_flow(scopes=Settings.SCOPE)
+        return redirect(session["flow"]["auth_uri"])
+
     with OpenMongoClientConnection(Settings.DB_CONNECTION_STRING) as client:
         db = client[Settings.DB_NAME]
         dashboard_visits = update_visits(db)
