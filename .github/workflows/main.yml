@@ -1,0 +1,49 @@
+# workflow name
+name: Deploy to Cloud Foundry
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  # job name
+  deploy:
+    # The type of runner that the job will run on
+    runs-on: self-hosted
+  
+    # environment secrets
+    env:
+      CF_USERNAME: ${{ secrets.CF_USERNAME }}
+      CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a few commands
+      - name: configure CF, set the CF target, and push the app to CF
+        shell: /usr/bin/bash {0}
+        run: |
+          cf api ${{ secrets.CF_API }}
+          cf auth
+          echo "Setting target..."
+          cf target -o "${{ secrets.CF_ORG }}" -s "${{ secrets.CF_SPACE }}"
+          echo "Setting db name..."
+          cf set-env "${{ secrets.CF_APP_NAME }}" DB_NAME "${{ secrets.DB_NAME }}"
+          echo "Setting db connection..."
+          cf set-env "${{ secrets.CF_APP_NAME }}" DB_CONNECTION_STRING "${{ secrets.DB_CONNECTION_STRING}}"
+          echo "Setting Azure client information"
+          cf set-env "${{ secrets.CF_APP_NAME }}" AUTHORITY "${{ secrets.AZ_AUTHORITY }}"
+          cf set-env "${{ secrets.CF_APP_NAME }}" CLIENT_ID "${{ secrets.AZ_CLIENT_ID }}"
+          cf set-env "${{ secrets.CF_APP_NAME }}" CLIENT_SECRET "${{ secrets.AZ_CLIENT_SECRET }}"
+          cf set-env "${{ secrets.CF_APP_NAME }}" SECRET_KEY "${{ secrets.SECRET_KEY}}"
+          echo "Pushing with build pack ${{ secrets.CF_BUILDPACK }}"
+          cf push "${{ secrets.CF_APP_NAME }}" -b "${{ secrets.CF_BUILDPACK }}"
