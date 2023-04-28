@@ -13,7 +13,7 @@ class Settings:
     AUTHORITY = getenv("AUTHORITY", "")
     CLIENT_ID = getenv("CLIENT_ID", "")  # application (client) ID from app registration
     CLIENT_SECRET = getenv("CLIENT_SECRET", "")
-    REDIRECT_PATH = "/get-azure-authentication-token"  # used when forming an absolute URL for your redirect URI
+    REDIRECT_PATH = "/auth"  # used when forming an absolute URL for your redirect URI
     SCOPE = []
     SESSION_COOKIE_NAME = "JSESSIONID"
     SESSION_PERMANENT = False
