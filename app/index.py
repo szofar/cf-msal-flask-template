@@ -62,7 +62,7 @@ def authorized():
         cache = _load_cache()
         result = _build_msal_app(cache=cache).acquire_token_by_auth_code_flow(
             session.get("flow", {}), request.args)
-        if "error" in result or "MyApp.ReadAccess" not in result.get("id_token_claims", {}).get("roles", {}):
+        if "error" in result or Settings.READ_ACCESS not in result.get("id_token_claims", {}).get("roles", {}):
             return redirect(url_for("unauthorized"))
         session["user"] = result.get("id_token_claims")
         _save_cache(cache)

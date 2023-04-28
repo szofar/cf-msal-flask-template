@@ -13,6 +13,7 @@ class Settings:
     AUTHORITY = getenv("AUTHORITY", "")
     CLIENT_ID = getenv("CLIENT_ID", "")  # application (client) ID from app registration
     CLIENT_SECRET = getenv("CLIENT_SECRET", "")
+    READ_ACCESS = getenv("READ_ACCESS", "")
     REDIRECT_PATH = "/auth"  # used when forming an absolute URL for your redirect URI
     SCOPE = []
     SESSION_COOKIE_NAME = "JSESSIONID"
