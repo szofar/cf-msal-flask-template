@@ -31,6 +31,7 @@ jobs:
       # Runs a few commands
       - name: configure CF, set the CF target, and push the app to CF
         shell: /usr/bin/bash {0}
+        # The Cloud Foundry CLI must be installed and accessible from your runner
         run: |
           cf api ${{ secrets.CF_API }}
           cf auth
